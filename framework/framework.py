@@ -2,7 +2,7 @@
 Main framework implementation for customer requirements management.
 """
 
-from typing import List, Dict, Optional, Set
+from typing import List, Dict, Optional
 from .models import (
     CustomerSegment, Requirement, Product, ProductLine, Cell, BusinessModel,
     Priority, RequirementStatus, SegmentType
@@ -264,7 +264,7 @@ class RequirementsFramework:
         
         for req in segment_requirements:
             coverage = self.get_requirement_coverage(req.id)
-            if not any(coverage.values()):
+            if not any(len(items) > 0 for items in coverage.values()):
                 uncovered.append(req)
             
             if not req.validation_criteria:
